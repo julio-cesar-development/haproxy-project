@@ -2,7 +2,9 @@ FROM juliocesarmidia/ubuntu_base_alpine:18.04
 LABEL maintainer="julio@blackdevs.com.br"
 
 RUN apt-get update -yqq && \
-    apt-get install -yqq haproxy rsyslog
+    apt-get install -yqq haproxy rsyslog gettext
+
+COPY haproxy.cfg /tmp/haproxy.cfg
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh

@@ -28,8 +28,9 @@ docker run --rm --net=host \
 
 > HAProxy
 
+[https://phcco.com/alta-disponibilidade-e-balanceamento-de-carga-http-com-haproxy](https://phcco.com/alta-disponibilidade-e-balanceamento-de-carga-http-com-haproxy)<br>
 [https://www.haproxy.com/blog/introduction-to-haproxy-logging/](https://www.haproxy.com/blog/introduction-to-haproxy-logging/)<br>
-[https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#8.1](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#8.1)<br>
+[https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#2.4](https://cbonte.github.io/haproxy-dconv/1.8/configuration.html#2.4)<br>
 [https://www.haproxy.org/download/1.4/doc/configuration.txt](https://www.haproxy.org/download/1.4/doc/configuration.txt)<br>
 
 ## Authors

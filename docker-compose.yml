@@ -6,17 +6,21 @@ services:
     build:
       context: ./haproxy
       dockerfile: Dockerfile
+    environment:
+      PROXY_UI_USERNAME: ${PROXY_UI_USERNAME:-admin}
+      PROXY_UI_PASSWORD: ${PROXY_UI_PASSWORD:-admin}
     networks:
       haproxy:
         ipv4_address: 172.200.10.2
         aliases:
           - proxy
     ports:
-      - 8888:80/tcp
+      - 80:80/tcp
+      - 8080:8080/tcp
     hostname: proxy
     restart: on-failure
     volumes:
-      - ./haproxy/haproxy.cfg:/etc/haproxy/haproxy.cfg
+      - ./haproxy/haproxy.cfg:/tmp/haproxy.cfg
     privileged: true
 
   http-api-0:
