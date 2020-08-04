@@ -1,0 +1,81 @@
+version: '3.4'
+
+services:
+  haproxy:
+    container_name: haproxy
+    build:
+      context: ./haproxy
+      dockerfile: Dockerfile
+    networks:
+      haproxy:
+        ipv4_address: 172.200.10.2
+        aliases:
+          - proxy
+    ports:
+      - 8888:80/tcp
+    hostname: proxy
+    restart: on-failure
+    volumes:
+      - ./haproxy/haproxy.cfg:/etc/haproxy/haproxy.cfg
+    privileged: true
+
+  http-api-0:
+    container_name: http-api-0
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    environment:
+      API_PORT: 9000
+      MESSAGE: "172.200.10.3"
+    expose:
+      - 9000/tcp
+    networks:
+      haproxy:
+        ipv4_address: 172.200.10.3
+        aliases:
+          - http-api
+    hostname: http-api-0
+    restart: on-failure
+
+  http-api-1:
+    container_name: http-api-1
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    environment:
+      API_PORT: 9000
+      MESSAGE: "172.200.10.4"
+    expose:
+      - 9000/tcp
+    networks:
+      haproxy:
+        ipv4_address: 172.200.10.4
+        aliases:
+          - http-api
+    hostname: http-api-1
+    restart: on-failure
+
+  http-api-2:
+    container_name: http-api-2
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    environment:
+      API_PORT: 9000
+      MESSAGE: "172.200.10.5"
+    expose:
+      - 9000/tcp
+    networks:
+      haproxy:
+        ipv4_address: 172.200.10.5
+        aliases:
+          - http-api
+    hostname: http-api-2
+    restart: on-failure
+
+networks:
+  haproxy:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.200.10.0/24
+
+volumes:
+  entry-node-modules:
