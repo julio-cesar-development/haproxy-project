@@ -15,60 +15,76 @@ services:
         aliases:
           - proxy
     ports:
-      - 80:80/tcp
-      - 8080:8080/tcp
+      - 8000:80/tcp
+      - 8888:8080/tcp
     hostname: proxy
     restart: on-failure
     volumes:
       - ./haproxy/haproxy.cfg:/tmp/haproxy.cfg
     privileged: true
 
-  http-api-0:
-    container_name: http-api-0
+  api-v1:
+    container_name: api-v1
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.3"
+      MESSAGE: "172.200.10.3 API v1"
     expose:
       - 9000/tcp
     networks:
       haproxy:
         ipv4_address: 172.200.10.3
         aliases:
-          - http-api
-    hostname: http-api-0
+          - api.v1
+    hostname: api-v1
     restart: on-failure
 
-  http-api-1:
-    container_name: http-api-1
+  api-v2:
+    container_name: api-v2
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.4"
+      MESSAGE: "172.200.10.4 API v2"
     expose:
       - 9000/tcp
     networks:
       haproxy:
         ipv4_address: 172.200.10.4
         aliases:
-          - http-api
-    hostname: http-api-1
+          - api.v2
+    hostname: api-v2
     restart: on-failure
 
-  http-api-2:
-    container_name: http-api-2
+  api-v3:
+    container_name: api-v3
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.5"
+      MESSAGE: "172.200.10.5 API v3"
     expose:
       - 9000/tcp
     networks:
       haproxy:
         ipv4_address: 172.200.10.5
         aliases:
-          - http-api
-    hostname: http-api-2
+          - api.v3
+    hostname: api-v3
+    restart: on-failure
+
+  api-v4:
+    container_name: api-v4
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    environment:
+      API_PORT: 9000
+      MESSAGE: "172.200.10.6 API v4"
+    expose:
+      - 9000/tcp
+    networks:
+      haproxy:
+        ipv4_address: 172.200.10.6
+        aliases:
+          - api.v4
+    hostname: api-v4
     restart: on-failure
 
 networks:
