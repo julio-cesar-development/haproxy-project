@@ -18,7 +18,7 @@ docker-compose up
 ## Tests
 
 ```bash
-# this will reach the cluster with 3 cotainers (v1, v2, v3) using the default_backend of Haproxy
+# this will reach the cluster with 3 containers (v1, v2, v3) using the default_backend of Haproxy
 curl http://localhost:8000/
 
 # this will reach the v4 server (using virtual hosting)
