@@ -1,34 +1,9 @@
 # HAProxy Project
 
-[![GitHub Status](https://badgen.net/github/status/julio-cesar-development/haproxy-project)](https://github.com/julio-cesar-development/haproxy-project)
+[![GitHub Status](https://badgen.net/github/status/juliocesarscheidt/haproxy-project)](https://github.com/juliocesarscheidt/haproxy-project)
 ![License](https://badgen.net/badge/license/MIT/blue)
 
-> This is a simple project to try out HAProxy to load balancing requests using least connection algorithm.<br>
-
----
-
-## Instructions
-
-> Running
-
-```bash
-docker-compose up
-```
-
-## Tests
-
-```bash
-# this will reach the cluster with 3 containers (v1, v2, v3) using the default_backend of Haproxy
-curl http://localhost:8000/
-
-# this will reach the v4 server (using virtual hosting)
-curl -H 'Host: api.haproxy.local' http://localhost:8000
-
-# benchmark
-docker run --rm --net=host \
-  jordi/ab -c 256 -n 10000 \
-  http://localhost:8000/
-```
+> This is a simple project to try out HAProxy as a load balancer
 
 ## Docs
 
@@ -42,7 +17,7 @@ docker run --rm --net=host \
 
 ## Authors
 
-[Julio Cesar](https://github.com/julio-cesar-development)
+[Julio Cesar](https://github.com/juliocesarscheidt)
 
 ## License
 

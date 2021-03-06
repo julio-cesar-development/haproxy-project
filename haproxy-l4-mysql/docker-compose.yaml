@@ -1,0 +1,81 @@
+version: '3.4'
+
+services:
+  haproxy:
+    container_name: haproxy
+    image: haproxy:2.0
+    ports:
+      - '0.0.0.0:33000:3306'
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.2
+        aliases:
+          - haproxy
+    hostname: haproxy
+    restart: on-failure
+
+  mysql_master:
+    container_name: mysql_master
+    image: mysql:8.0
+    ports:
+      - '0.0.0.0:33006:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-admin}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-DB_MYSQL}
+      MYSQL_ROOT_HOST: "%"
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.3
+        aliases:
+          - mysql_master
+    hostname: mysql_master
+    restart: on-failure
+    volumes:
+      - ./masterconf/:/etc/mysql/conf.d/
+      - ./master_ddl.sql:/docker-entrypoint-initdb.d/data.sql
+      - mysql-volume-data-master:/var/lib/mysql
+      - ./masterlog:/var/log/mysql
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--default-authentication-plugin=mysql_native_password'
+
+  mysql_slave:
+    container_name: mysql_slave
+    image: mysql:8.0
+    ports:
+      - '0.0.0.0:33036:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD:-admin}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-DB_MYSQL}
+      MYSQL_ROOT_HOST: "%"
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.4
+        aliases:
+          - mysql_slave
+    hostname: mysql_slave
+    restart: on-failure
+    volumes:
+      - ./slaveconf/:/etc/mysql/conf.d/
+      - ./slave_ddl.sql:/docker-entrypoint-initdb.d/data.sql
+      - mysql-volume-data-slave:/var/lib/mysql
+      - ./slavelog:/var/log/mysql
+    command:
+      - '--character-set-server=utf8mb4'
+      - '--default-authentication-plugin=mysql_native_password'
+
+networks:
+  subnet_0:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.100.0.0/24
+
+volumes:
+  mysql-volume-data-master:
+  mysql-volume-data-slave:

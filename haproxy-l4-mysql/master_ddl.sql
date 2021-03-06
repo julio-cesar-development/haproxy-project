@@ -1,0 +1,20 @@
+USE DB_MYSQL;
+
+CREATE TABLE IF NOT EXISTS TABLE_MYSQL (
+  id INT AUTO_INCREMENT NOT NULL primary key,
+  name VARCHAR(255) NULL,
+  created_at DATETIME NOT NULL DEFAULT NOW(),
+  updated_at DATETIME NULL,
+  deleted_at DATETIME NULL
+);
+
+CREATE USER 'slave_user'@'%' IDENTIFIED WITH mysql_native_password BY 'slave_pass';
+GRANT REPLICATION SLAVE ON *.* TO 'slave_user'@'%';
+FLUSH PRIVILEGES;
+FLUSH TABLES WITH READ LOCK;
+
+SHOW MASTER STATUS;
+
+SHOW VARIABLES LIKE 'server_id';
+
+SELECT user, host FROM mysql.user;

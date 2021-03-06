@@ -4,13 +4,12 @@ services:
   haproxy:
     container_name: haproxy
     build:
-      context: ./haproxy
-      dockerfile: Dockerfile
+      context: ./
     environment:
-      PROXY_UI_USERNAME: ${PROXY_UI_USERNAME:-admin}
-      PROXY_UI_PASSWORD: ${PROXY_UI_PASSWORD:-admin}
+      PROXY_UI_USERNAME: ${PROXY_UI_USERNAME}
+      PROXY_UI_PASSWORD: ${PROXY_UI_PASSWORD}
     networks:
-      haproxy:
+      subnet_0:
         ipv4_address: 172.200.10.2
         aliases:
           - proxy
@@ -20,7 +19,7 @@ services:
     hostname: proxy
     restart: on-failure
     volumes:
-      - ./haproxy/haproxy.cfg:/tmp/haproxy.cfg
+      - ./haproxy.cfg:/tmp/haproxy.cfg
     privileged: true
 
   api-v1:
@@ -32,7 +31,7 @@ services:
     expose:
       - 9000/tcp
     networks:
-      haproxy:
+      subnet_0:
         ipv4_address: 172.200.10.3
         aliases:
           - api.v1
@@ -48,7 +47,7 @@ services:
     expose:
       - 9000/tcp
     networks:
-      haproxy:
+      subnet_0:
         ipv4_address: 172.200.10.4
         aliases:
           - api.v2
@@ -64,7 +63,7 @@ services:
     expose:
       - 9000/tcp
     networks:
-      haproxy:
+      subnet_0:
         ipv4_address: 172.200.10.5
         aliases:
           - api.v3
@@ -80,7 +79,7 @@ services:
     expose:
       - 9000/tcp
     networks:
-      haproxy:
+      subnet_0:
         ipv4_address: 172.200.10.6
         aliases:
           - api.v4
@@ -88,7 +87,7 @@ services:
     restart: on-failure
 
 networks:
-  haproxy:
+  subnet_0:
     driver: bridge
     driver_opts:
       com.docker.network.enable_ipv6: "false"
