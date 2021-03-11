@@ -27,7 +27,7 @@ services:
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.3 API v1"
+      MESSAGE: "API v1"
     expose:
       - 9000/tcp
     networks:
@@ -43,7 +43,7 @@ services:
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.4 API v2"
+      MESSAGE: "API v2"
     expose:
       - 9000/tcp
     networks:
@@ -59,7 +59,7 @@ services:
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "172.200.10.5 API v3"
+      MESSAGE: "API v3"
     expose:
       - 9000/tcp
     networks:
@@ -68,22 +68,6 @@ services:
         aliases:
           - api.v3
     hostname: api-v3
-    restart: on-failure
-
-  api-v4:
-    container_name: api-v4
-    image: juliocesarmidia/http-simple-api:v1.0.0
-    environment:
-      API_PORT: 9000
-      MESSAGE: "172.200.10.6 API v4"
-    expose:
-      - 9000/tcp
-    networks:
-      subnet_0:
-        ipv4_address: 172.200.10.6
-        aliases:
-          - api.v4
-    hostname: api-v4
     restart: on-failure
 
 networks:
