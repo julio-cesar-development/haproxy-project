@@ -68,7 +68,4 @@ curl -X GET \
 # API v3
 # API v3
 # API v3
-
-
-
 ```

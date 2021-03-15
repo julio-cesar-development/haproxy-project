@@ -6,8 +6,8 @@ services:
     build:
       context: ./
     environment:
-      AUTH_USERNAME: ${AUTH_USERNAME}
-      AUTH_PASSWORD: ${AUTH_PASSWORD}
+      PROXY_UI_USERNAME: ${PROXY_UI_USERNAME}
+      PROXY_UI_PASSWORD: ${PROXY_UI_PASSWORD}
     networks:
       subnet_0:
         ipv4_address: 172.200.10.2
@@ -15,6 +15,7 @@ services:
           - proxy
     ports:
       - 8000:80/tcp
+      - 8888:8080/tcp
     hostname: proxy
     restart: on-failure
     volumes:
