@@ -18,6 +18,8 @@ option httpchk GET /
 
 
 # testing
+docker-compose up -d
+
 curl http://localhost:8000
 # api_v1
 # api_v2

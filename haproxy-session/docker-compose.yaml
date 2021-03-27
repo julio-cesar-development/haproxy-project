@@ -1,0 +1,59 @@
+version: '3.4'
+
+services:
+  haproxy:
+    container_name: haproxy
+    image: haproxy:2.0
+    ports:
+      - 8000:80
+    volumes:
+      - ./haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.2
+        aliases:
+          - haproxy
+    hostname: haproxy
+    restart: on-failure
+
+  api_v1:
+    container_name: api_v1
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    ports:
+      - 9001:9000
+    environment:
+      API_PORT: 9000
+      MESSAGE: "api_v1"
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.3
+        aliases:
+          - api.v1
+    hostname: api_v1
+    restart: on-failure
+
+  api_v2:
+    container_name: api_v2
+    image: juliocesarmidia/http-simple-api:v1.0.0
+    ports:
+      - 9002:9000
+    environment:
+      API_PORT: 9000
+      MESSAGE: "api_v2"
+    networks:
+      subnet_0:
+        ipv4_address: 172.100.0.4
+        aliases:
+          - api.v2
+    hostname: api_v2
+    restart: on-failure
+
+networks:
+  subnet_0:
+    driver: bridge
+    driver_opts:
+      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+      - subnet: 172.100.0.0/24
