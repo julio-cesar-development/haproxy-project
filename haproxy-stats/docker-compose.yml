@@ -22,12 +22,12 @@ services:
       - ./haproxy.cfg:/tmp/haproxy.cfg
     privileged: true
 
-  api-v1:
-    container_name: api-v1
+  api_v1:
+    container_name: api_v1
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "API v1"
+      MESSAGE: "api_v1"
     expose:
       - 9000/tcp
     networks:
@@ -35,15 +35,15 @@ services:
         ipv4_address: 172.200.10.3
         aliases:
           - api.v1
-    hostname: api-v1
+    hostname: api_v1
     restart: on-failure
 
-  api-v2:
-    container_name: api-v2
+  api_v2:
+    container_name: api_v2
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "API v2"
+      MESSAGE: "api_v2"
     expose:
       - 9000/tcp
     networks:
@@ -51,15 +51,15 @@ services:
         ipv4_address: 172.200.10.4
         aliases:
           - api.v2
-    hostname: api-v2
+    hostname: api_v2
     restart: on-failure
 
-  api-v3:
-    container_name: api-v3
+  api_v3:
+    container_name: api_v3
     image: juliocesarmidia/http-simple-api:v1.0.0
     environment:
       API_PORT: 9000
-      MESSAGE: "API v3"
+      MESSAGE: "api_v3"
     expose:
       - 9000/tcp
     networks:
@@ -67,7 +67,7 @@ services:
         ipv4_address: 172.200.10.5
         aliases:
           - api.v3
-    hostname: api-v3
+    hostname: api_v3
     restart: on-failure
 
 networks:
