@@ -79,6 +79,3 @@ networks:
       driver: default
       config:
       - subnet: 172.200.10.0/24
-
-volumes:
-  entry-node-modules:

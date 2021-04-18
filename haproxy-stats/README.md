@@ -1,4 +1,4 @@
-# Haproxy with ACLs
+# Haproxy Stats
 
 > https://cbonte.github.io/haproxy-dconv/2.3/configuration.html#7
 
