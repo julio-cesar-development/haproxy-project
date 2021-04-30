@@ -48,9 +48,9 @@ After=network-online.target
 Wants=network-online.target
 [Service]
 EnvironmentFile=/etc/sysconfig/haproxy
-ExecStartPre=/usr/local/sbin/haproxy -c -f /etc/haproxy/haproxy.cfg
-ExecStart=/usr/local/sbin/haproxy -Ws -f /etc/haproxy/haproxy.cfg -p /run/haproxy.pid
-ExecReload=/bin/kill -USR2 $MAINPID
+ExecStartPre=/usr/local/sbin/haproxy -c -f \$CONFIG
+ExecStart=/usr/local/sbin/haproxy -Ws -f \$CONFIG -p \$PIDFILE
+ExecReload=/bin/kill -USR2 \$MAINPID
 SuccessExitStatus=143
 KillMode=mixed
 Type=notify
